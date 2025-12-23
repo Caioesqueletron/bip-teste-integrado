@@ -1,6 +1,5 @@
 package com.example.backend.models.request;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.math.BigDecimal;

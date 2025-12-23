@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BeneficioCreateCard } from './beneficio-create-card';
+import { BeneficioForm } from './beneficio-form';
 
-describe('BeneficioCreateCard', () => {
-  let component: BeneficioCreateCard;
-  let fixture: ComponentFixture<BeneficioCreateCard>;
+describe('BeneficioForm', () => {
+  let component: BeneficioForm;
+  let fixture: ComponentFixture<BeneficioForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BeneficioCreateCard]
+      imports: [BeneficioForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BeneficioCreateCard);
+    fixture = TestBed.createComponent(BeneficioForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

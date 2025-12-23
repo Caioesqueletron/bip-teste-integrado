@@ -74,7 +74,7 @@ public class BeneficioEjbService {
 
         try {
             Beneficio from = findById(fromId);
-            Beneficio to   = findById(toId);
+            Beneficio to = findById(toId);
 
             if (from.getValor().compareTo(amount) < 0) {
                 throw new IllegalStateException("Saldo insuficiente");
