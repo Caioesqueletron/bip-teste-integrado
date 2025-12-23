@@ -1,0 +1,30 @@
+<h2>Transferir Benefício</h2>
+
+<div>
+  <label>Origem</label>
+  <select [(ngModel)]="fromId">
+    @for (b of beneficios; track b.id) {
+      <option [value]="b.id">
+        {{ b.nome }} (R$ {{ b.valor }})
+      </option>
+    }
+  </select>
+</div>
+
+<div>
+  <label>Destino</label>
+  <select [(ngModel)]="toId">
+    @for (b of beneficios; track b.id) {
+      <option [value]="b.id">
+        {{ b.nome }} (R$ {{ b.valor }})
+      </option>
+    }
+  </select>
+</div>
+
+<div>
+  <label>Valor</label>
+  <input type="number" [(ngModel)]="amount" />
+</div>
+
+<button (click)="transfer()">Transferir</button>

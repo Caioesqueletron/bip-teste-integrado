@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BeneficioCreate } from './beneficio-create';
+import { BeneficioTransfer } from './beneficio-transfer';
 
-describe('BeneficioCreate', () => {
-  let component: BeneficioCreate;
-  let fixture: ComponentFixture<BeneficioCreate>;
+describe('BeneficioTransfer', () => {
+  let component: BeneficioTransfer;
+  let fixture: ComponentFixture<BeneficioTransfer>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BeneficioCreate]
+      imports: [BeneficioTransfer]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BeneficioCreate);
+    fixture = TestBed.createComponent(BeneficioTransfer);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

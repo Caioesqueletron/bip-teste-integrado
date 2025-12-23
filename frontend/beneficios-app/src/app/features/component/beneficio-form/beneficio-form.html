@@ -1,0 +1,19 @@
+<h2 class="text-xl font-bold mb-4">{{ isEdit ? 'Editar Benefício' : 'Criar Benefício' }}</h2>
+    <form (ngSubmit)="submit()" class="space-y-2 max-w-md">
+      <input [(ngModel)]="beneficio().nome" name="nome" placeholder="Nome" required
+             class="border p-2 rounded w-full"/>
+      <input [(ngModel)]="beneficio().descricao" name="descricao" placeholder="Descrição"
+             class="border p-2 rounded w-full"/>
+      <input [(ngModel)]="beneficio().valor" name="valor" placeholder="Valor" type="number" required
+             class="border p-2 rounded w-full"/>
+      <label class="flex items-center gap-2">
+        <input type="checkbox" [(ngModel)]="beneficio().ativo" name="ativo"/>
+        Ativo
+      </label>
+      <div class="flex gap-2">
+        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">
+          {{ isEdit ? 'Salvar' : 'Criar' }}
+        </button>
+        <button type="button" (click)="cancel()" class="bg-gray-300 px-3 py-1 rounded">Cancelar</button>
+      </div>
+    </form>
