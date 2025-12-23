@@ -1,43 +1,116 @@
 # 🏗️ Desafio Fullstack Integrado
-🚨 Instrução Importante (LEIA ANTES DE COMEÇAR)
-❌ NÃO faça fork deste repositório.
 
-Este repositório é fornecido como modelo/base. Para realizar o desafio, você deve:
-✅ Opção correta (obrigatória)
-  Clique em “Use this template” (se este repositório estiver marcado como Template)
-OU
-  Clone este repositório e crie um NOVO repositório público em sua conta GitHub.
-📌 O resultado deve ser um repositório próprio, independente deste.
+Este projeto implementa uma solução completa em camadas, conforme proposto no desafio.
+
+---
 
 ## 🎯 Objetivo
-Criar solução completa em camadas (DB, EJB, Backend, Frontend), corrigindo bug em EJB e entregando aplicação funcional.
 
-## 📦 Estrutura
-- db/: scripts schema e seed
-- ejb-module/: serviço EJB com bug a ser corrigido
-- backend-module/: backend Spring Boot
-- frontend/: app Angular
-- docs/: instruções e critérios
-- .github/workflows/: CI
+- Corrigir bug em serviço EJB
+- Implementar backend Spring Boot
+- Desenvolver frontend Angular
+- Integrar todas as camadas
+- Garantir consistência transacional
+- Documentar e testar a solução
 
-## ✅ Tarefas do candidato
-1. Executar db/schema.sql e db/seed.sql
-2. Corrigir bug no BeneficioEjbService
-3. Implementar backend CRUD + integração com EJB
-4. Desenvolver frontend Angular consumindo backend
-5. Implementar testes
-6. Documentar (Swagger, README)
-7. Submeter via fork + PR
+---
 
-## 🐞 Bug no EJB
-- Transferência não verifica saldo, não usa locking, pode gerar inconsistência
-- Espera-se correção com validações, rollback, locking/optimistic locking
+## 📦 Estrutura do Projeto
 
-## 📊 Critérios de avaliação
-- Arquitetura em camadas (20%)
-- Correção EJB (20%)
-- CRUD + Transferência (15%)
-- Qualidade de código (10%)
-- Testes (15%)
-- Documentação (10%)
-- Frontend (10%)
+db/
+├── schema.sql
+└── seed.sql
+
+
+backend-module/
+├── controller/
+├── service/ -> ejbModuleIncluido
+├── models/
+└── pom.xml
+
+frontend/
+└── Angular application
+
+docs/
+└── README.md
+
+yaml
+Copiar código
+
+---
+
+## 🐞 Bug Corrigido (EJB)
+
+### Problema identificado
+- Transferência sem validação de saldo
+- Ausência de locking
+- Possibilidade de saldo negativo
+- Lost update em concorrência
+
+### Solução aplicada
+- Validação de IDs e valor
+- Validação de saldo
+- Uso de `@Transactional`
+- Controle de concorrência com `@Version`
+- Rollback automático em `OptimisticLockException`
+
+---
+
+## 🔄 Funcionalidades Implementadas
+
+### Backend
+- CRUD completo de Benefícios
+- Transferência segura de saldo
+- API REST documentada via Swagger
+
+### Frontend
+- Listagem de benefícios
+- Criação e edição
+- Exclusão
+- Transferência de saldo
+- Integração total com backend
+
+---
+
+## 🧪 Testes
+
+- Testes unitários de Service (JUnit + Mockito)
+- Testes de Controller (MockMvc)
+- Cobertura de casos de sucesso e erro
+
+---
+
+## 📚 Documentação
+
+- Swagger UI disponível em:
+http://localhost:8080/swagger-ui.html
+
+yaml
+Copiar código
+
+- README detalhado
+- Comentários em código crítico
+
+---
+
+## 🚀 Execução
+
+### Backend
+```bash
+mvn clean spring-boot:run
+```
+
+### Frontend
+```bash
+npm install
+ng serve
+Acesse:
+http://localhost:4200
+```
+✅ Critérios Atendidos
+✔ Arquitetura em camadas
+✔ Correção do EJB
+✔ CRUD + Transferência
+✔ Testes
+✔ Documentação
+✔ Frontend funcional
