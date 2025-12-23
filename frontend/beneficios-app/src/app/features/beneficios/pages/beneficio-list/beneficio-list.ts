@@ -1,0 +1,85 @@
+import { Component, OnInit, signal } from '@angular/core';
+import { Beneficio } from '../../../../shared/models/beneficio.model';
+import { BeneficioApi } from '../../../../core/services/beneficio-api';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-beneficio-list',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: `
+    <div class="flex justify-between mb-4">
+      <h2 class="text-xl font-bold">Benefícios</h2>
+      <a routerLink="/beneficios/create" class="bg-blue-500 text-white px-3 py-1 rounded">Novo</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (b of beneficios();track b.id) {
+        <div class="bg-white shadow-md rounded p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-lg">{{ b.nome }}</h3>
+            <p class="text-gray-600">{{ b.descricao }}</p>
+          </div>
+
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-green-600 font-semibold">R$ {{ b.valor }}</span>
+
+            <div class="flex gap-1">
+              <!-- Toggle ativo/inativo -->
+              <button (click)="toggleAtivo(b)" 
+                      class="px-2 py-1 rounded border">
+                {{ b.ativo ? 'Ativo' : 'Inativo' }}
+              </button>
+
+              <!-- Editar -->
+              <a [routerLink]="['/beneficios/edit', b.id]" 
+                 class="px-2 py-1 bg-yellow-400 rounded text-white">Editar</a>
+
+              <!-- Deletar -->
+              <button (click)="delete(b)" 
+                      class="px-2 py-1 bg-red-500 text-white rounded">
+                Deletar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="mt-4">
+      <a routerLink="/beneficios/transfer" class="bg-purple-500 text-white px-3 py-1 rounded">
+        Transferir
+      </a>
+    </div>
+  `
+})
+export class BeneficioList implements OnInit {
+  beneficios = signal<Beneficio[]>([]);
+
+  constructor(
+    private api: BeneficioApi,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.load();
+  }
+
+  load() {
+    this.api.list().subscribe(data => this.beneficios.set(data));
+  }
+
+  toggleAtivo(b: Beneficio) {
+    b.ativo = !b.ativo;
+    if (b.id) this.api.update(b.id, b).subscribe(() => this.load());
+  }
+
+  delete(b: Beneficio) {
+    if (!b.id) return;
+    if (confirm(`Deseja realmente deletar o benefício "${b.nome}"?`)) {
+      this.api.delete(b.id).subscribe(() => this.load());
+    }
+  }
+}
